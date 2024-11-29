@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eksperci w Grach Po Imprezie – Najlepsze Gry na After Party | Experts-Scores</title>
+    <link rel="icon" href="./assets/images/logo.jpg" type="image/x-icon">
+    <meta name="referrer" content="never" />
+   
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <script src="./src/dynamicfoothead.js"></script>
+
+    <div id="header-placeholder"></div>
+
+    <div class="max-w-full mx-auto p-6 bg-gradient-to-r from-gray-900 via-black to-gray-800 shadow-lg">
+        <div id="game-details-container">
+            <!-- Game details will be inserted here -->
+        </div>
+    </div>
+    
+
+    
+    <div id="footer-placeholder"></div>
+
+    <script>
+
+
+window.onload = function () {
+            generateHeaderAndFooter()
+            function getUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                name: urlParams.get('name'),
+                description: urlParams.get('description'),
+                price: urlParams.get('price'),
+                image_link: urlParams.get('image_link'),
+                buy_link: urlParams.get('buy_link')
+            };
+        }
+
+        // Render the game details
+        function renderGameDetails(game) {
+            const container = document.getElementById('game-details-container');
+            container.innerHTML = `
+              <div class="bg-gradient-to-r from-indigo-500 via-blue-500 to-teal-500 p-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 max-w-xs mx-auto">
+    <!-- Game Image -->
+    <div class="overflow-hidden rounded-lg shadow-lg mb-6">
+        <img src="${game.image_link}" alt="${game.name}" class="w-full h-48 object-cover">
+    </div>
+
+    <!-- Game Title with Stylish Font -->
+    <h2 class="text-3xl font-bold text-white mb-4 text-center leading-tight tracking-tight">
+        ${game.name}
+    </h2>
+
+    <!-- Game Description with Soft Background -->
+    <p class="text-gray-100 text-base mb-6 text-center">
+        ${game.description}
+    </p>
+
+    <!-- Price Section -->
+    <div class="text-center mb-6">
+        <p class="text-lg font-semibold text-white">Cena: <span class="text-yellow-300">${game.price}</span></p>
+    </div>
+
+    <!-- Buy Now Button -->
+    <div class="text-center">
+        <a href="${game.buy_link}" target="_blank" class="bg-gradient-to-r from-green-400 via-blue-500 to-indigo-600 text-white py-3 px-8 rounded-lg text-lg font-semibold hover:bg-gradient-to-r hover:from-blue-600 hover:to-teal-500 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            Kup teraz
+        </a>
+    </div>
+</div>
+
+
+            `;
+        }
+
+        // Get the game data from URL parameters
+        const game = getUrlParams();
+
+        // Render the details on the page
+        renderGameDetails(game);
+}
+
+        
+    </script>
+   
+
+</body>
+
+</html>

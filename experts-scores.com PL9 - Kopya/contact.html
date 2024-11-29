@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masz pytania? Jesteśmy tutaj, aby pomóc!</title>
+    <link rel="icon" href="./assets/images/logo.jpg" type="image/x-icon">
+    <meta name="referrer" content="never" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+
+    <script src="./src/dynamicfoothead.js"></script>
+
+    <div id="header-placeholder"></div>
+    <section class="bg-gradient-to-b from-blue-800 via-indigo-700 to-blue-900 text-gray-200">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-white mb-8">Skontaktuj się z nami</h1>
+            <p class="text-lg text-center text-gray-300 mb-8">Masz pytania dotyczące naszych ofert, gier lub wsparcia? Napisz do nas, a nasz zespół pomoże Ci w każdej sprawie związanej z kasynem online i zakładami sportowymi.</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Contact Info Section -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-semibold text-yellow-500 mb-4">Nasze dane kontaktowe</h2>
+                    <p class="text-gray-300 mb-4">Masz pytania? Oto nasze dane kontaktowe:</p>
+                    <ul class="space-y-4">
+                        <li><strong>Email:</strong> <a href="mailto:support@experts-scores.com" class="text-yellow-400 hover:underline">support@experts-scores.com</a></li>
+                        <li><strong>Godziny pracy:</strong> Pon-Pt: 9:00 - 18:00</li>
+                    </ul>
+                </div>
+    
+                <!-- Contact Form Section -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg col-span-1 sm:col-span-2 lg:col-span-1">
+                    <h2 class="text-2xl font-semibold text-yellow-500 mb-4">Formularz Kontaktowy</h2>
+                    <p class="text-gray-300 mb-4">Wypełnij poniższy formularz, a nasz zespół skontaktuje się z Tobą w najbliższym czasie.</p>
+    
+                    <!-- Form -->
+                    <form id="contact-form1" class="space-y-4" onsubmit="handleSubmit(event)">
+                        <div class="flex flex-col">
+                            <label for="name" class="text-gray-300">Imię i nazwisko</label>
+                            <input type="text" id="name" name="name" class="px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:ring-2 focus:ring-yellow-400" placeholder="Wpisz swoje imię i nazwisko" required>
+                        </div>
+    
+                        <div class="flex flex-col">
+                            <label for="email" class="text-gray-300">Adres e-mail</label>
+                            <input type="email" id="email1" name="email" class="px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:ring-2 focus:ring-yellow-400" placeholder="Wpisz swój e-mail" required>
+                        </div>
+    
+                        <div class="flex flex-col">
+                            <label for="message" class="text-gray-300">Wiadomość</label>
+                            <textarea id="message" name="message" rows="4" class="px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:ring-2 focus:ring-yellow-400" placeholder="Napisz swoją wiadomość" required></textarea>
+                        </div>
+    
+                        <button type="submit" class="w-full py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-400 transition duration-300">Wyślij wiadomość</button>
+                    </form>
+                </div>
+            </div>
+    
+            <!-- Thank You Popup -->
+            <div id="thank-you-popup" class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center hidden">
+                <div class="bg-gradient-to-r from-blue-800 via-indigo-700 to-blue-900 p-8 rounded-lg shadow-lg text-center text-white">
+                    <h3 class="text-2xl font-bold text-cyan-400 mb-4">Dziękujemy za kontakt!</h3>
+                    <p class="text-gray-300 mb-4">Wkrótce skontaktujemy się z Tobą.</p>
+                    <button id="close-popup" class="px-6 py-3 bg-cyan-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-500 transition duration-300">
+                        Zamknij
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <div id="footer-placeholder"></div>
+    <script>
+         window.onload = function () {
+            generateHeaderAndFooter()
+        }
+        // Function to handle form submission
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            // Show the thank-you popup
+            document.getElementById('thank-you-popup').classList.remove('hidden');
+    
+            // Clear form fields
+            document.getElementById('contact-form1').reset();
+        }
+    
+        // Function to close the popup
+        document.getElementById('close-popup').addEventListener('click', function () {
+            document.getElementById('thank-you-popup').classList.add('hidden');
+        });
+    </script>
+    
+</body>
+
+</html>

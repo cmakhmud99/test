@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eksperci w Grach Po Imprezie – Najlepsze Gry na After Party | Experts-Scores</title>
+    <link rel="icon" href="./assets/images/logo.jpg" type="image/x-icon">
+    <meta name="referrer" content="never" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <script src="./src/dynamicfoothead.js"></script>
+
+    <div id="header-placeholder"></div>
+
+    <div id="favorites-container" class="bg-gradient-to-r from-blue-800 via-indigo-700 to-blue-900 grid grid-cols-1 lg:grid-cols-4 gap-8 pt-[50px]"></div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        window.onload = function () {
+            generateHeaderAndFooter();
+            renderFavorites(); // Ensure the favorites are rendered when the page loads
+        }
+
+        const favoritesContainer = document.getElementById('favorites-container');
+
+        // Function to render favorites from localStorage
+        function renderFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+            if (favorites.length === 0) {
+                favoritesContainer.innerHTML = '<p class="text-center text-white">No favorites added yet.</p>';
+                return;
+            }
+
+            favoritesContainer.innerHTML = ''; // Clear previous favorites
+
+            favorites.forEach(game => {
+                const favoriteHTML = `
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4 flex flex-col justify-between rounded-lg shadow-lg hover:shadow-xl transition-shadow mb-4" data-game-name="${game.name}">
+                        <img src="${game.image_link}" alt="${game.name}" class="w-full h- object-cover rounded-md mb-4">
+                        <h3 class="text-xl font-bold text-transparent bg-gradient-to-r from-teal-600 to-pink-700 bg-clip-text mb-2">${game.name}</h3>
+                        <p class="text-white text-sm mb-4">${game.description}</p>
+                        <p class="text-lg font-semibold text-white mb-4">Cena: ${game.price}</p>
+
+                        <a href="${game.buy_link}" class="inline-block text-center bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition mb-4">
+                            Więcej informacji
+                        </a>
+
+                        <!-- Styled Delete Button -->
+                        <button onclick="removeFromFavorites('${game.name}')" class="mt-2 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-200">
+                            Usuń z ulubionych
+                        </button>
+                    </div>
+                `;
+
+                favoritesContainer.innerHTML += favoriteHTML;
+            });
+        }
+
+        function removeFromFavorites(gameName) {
+    // Remove from localStorage
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    favorites = favorites.filter(game => game.name !== gameName);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+
+    // Remove the game element from the DOM
+    const gameElement = document.querySelector(`[data-game-name="${gameName}"]`);
+    if (gameElement) {
+        gameElement.remove();
+    }
+
+    // Display a message that the game was removed
+    showRemovedMessage(gameName);
+}
+
+// Function to display a removal confirmation message
+function showRemovedMessage(gameName) {
+    const messageModal = document.createElement('div');
+    messageModal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center';
+    messageModal.innerHTML = `
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <p class="text-lg font-semibold text-black">Gra "${gameName}" została usunięta z ulubionych.</p>
+            <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition" onclick="closePopupMessage()">OK</button>
+        </div>
+    `;
+    document.body.appendChild(messageModal);
+
+    // Automatically remove the message after 3 seconds
+    
+    closePopupMessage();
+   
+}
+
+// Function to close the confirmation message popup
+function closePopupMessage() {
+    const messageModal = document.querySelector('.fixed');
+    if (messageModal) {
+        messageModal.remove();
+    }
+}
+
+
+      
+    </script>
+
+</body>
+
+</html>

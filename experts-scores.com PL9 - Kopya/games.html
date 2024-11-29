@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eksperci w Grach Po Imprezie – Najlepsze Gry na After Party | Experts-Scores</title>
+  <link rel="icon" href="./assets/images/logo.jpg" type="image/x-icon">
+  <meta name="referrer" content="never" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+  <script src="./src/dynamicfoothead.js"></script>
+
+  <div id="header-placeholder"></div>
+
+  <div id="games-container"
+    class=" gap-8 bg-gradient-to-r from-blue-800 via-indigo-700 to-blue-900 p-4 shadow-lg"></div>
+
+
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+
+
+function addToFavorites(name, description, price, imageLink, buyLink) {
+  const game = { name, description, price, image_link: imageLink, buy_link: buyLink };
+  console.log(name);
+
+  // Get the current list of favorites from localStorage (or initialize it if empty)
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+  // Check if the game is already in the favorites list
+  const isGameInFavorites = favorites.some(favorite => favorite.name === name);
+
+  if (isGameInFavorites) {
+    // Open custom popup with Polish message
+    openPopup(`${name} jest już w Twoich ulubionych!`);
+  } else {
+    // Add the new game to the favorites array
+    favorites.push(game);
+
+    // Save the updated favorites list back to localStorage
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+
+    // Open custom popup with Polish message
+    openPopup(`${name} został dodany do Twoich ulubionych!`);
+  }
+}
+
+function openPopup(message) {
+  // Get the modal element if it exists
+  let modal = document.getElementById('popup-modal');
+  
+  // If the modal doesn't exist, create it
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'popup-modal';
+    modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center';
+    
+    // Modal content template
+    modal.innerHTML = `
+      <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <p class="text-lg font-semibold text-black" id="popup-message"></p>
+        <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition" onclick="closePopup()">Zamknij</button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+
+  // Update the message content
+  document.getElementById('popup-message').textContent = message;
+
+  // Show the modal
+  modal.style.display = 'flex';
+}
+
+function closePopup() {
+  // Close the popup
+  const modal = document.getElementById('popup-modal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
+
+    window.onload = function () {
+      generateHeaderAndFooter()
+      const games = {
+        "After Party Games": [
+        {
+    "name": "Telestrations After Dark Gra Planszowa",
+    "description": "Dorosła wersja popularnej gry rysunkowej, idealna na wieczory towarzyskie. Zapewnia śmiech i kreatywne rysowanie z lekką nutką humoru.",
+    "price": "$29.99",
+    "buy_link": "https://www.amazon.com/USAopoly-Telestrations-After-Dark-Board/dp/B00V42YPKO/?gotoExperts=PL9link&id=834tfp",
+    "image_link": "./assets/images/1.webp"
+},
+{
+    "name": "Bad Opinions Gra Imprezowa - Rozszerzenie",
+    "description": "Dodatek do imprezowej gry towarzyskiej, który dostarcza nowe pytania i wyzwania, idealne na rozgrzanie każdej imprezy.",
+    "price": "$14.99",
+    "buy_link": "https://www.amazon.com/Bad-Opinions-Party-Game-Expansion/dp/B0CLMFPVQH/?gotoExperts=PL9link&id=578gld",
+    "image_link": "./assets/images/2.jpg"
+},
+{
+    "name": "Rodzinna Gra Imprezowa z Przenośnym Opakowaniem",
+    "description": "Uniwersalna gra dla całej rodziny, w wygodnym, podróżnym opakowaniu. Idealna do zabawy w domu lub w podróży.",
+    "price": "$10.99",
+    "buy_link": "https://www.amazon.com/Family-Sturdy-Storage-Travel-Friendly-Exclusive/dp/B07P6MZPK3/?gotoExperts=PL9link&id=612phq",
+    "image_link": "./assets/images/3.jpg"
+},
+{
+    "name": "Apples to Apples Gra Imprezowa",
+    "description": "Zabawna gra słowna, w której gracze dopasowują karty według swoich pomysłów. Świetna na wieczory towarzyskie.",
+    "price": "$25.99",
+    "buy_link": "https://www.amazon.com/Mattel-Apples-Party-Box-Game/dp/B00H4OKN48/?gotoExperts=PL9link&id=349rte",
+    "image_link": "./assets/images/4.jpg"
+},
+{
+    "name": "Skip-Bo Gra Karciana",
+    "description": "Klasyczna gra karciana w wersji kolekcjonerskiej, która zapewnia mnóstwo zabawy dla całej rodziny lub grupy znajomych.",
+    "price": "$12.99",
+    "buy_link": "https://www.amazon.com/Mattel-Games-Skip-Bo-Collectible-Exclusive/dp/B08J4JDZ5F/?gotoExperts=PL9link&id=185zxo",
+    "image_link": "./assets/images/5.jpg"
+},
+{
+    "name": "Midnight Taboo",
+    "description": "Imprezowa wersja klasycznego Taboo z zabawnymi hasłami dla dorosłych. Idealna na wieczory w gronie znajomych.",
+    "price": "$20.99",
+    "buy_link": "https://www.amazon.com/Hasbro-Gaming-C0418-Midnight-Taboo/dp/B01ISKSSZM/?gotoExperts=PL9link&id=493clp",
+    "image_link": "./assets/images/6.jpg"
+},
+{
+    "name": "Monopoly Mega Edycja",
+    "description": "Rozszerzona wersja kultowej gry Monopoly z większą planszą i dodatkowymi elementami rozgrywki.",
+    "price": "$24.99",
+    "buy_link": "https://www.amazon.com/Winning-Moves-Games-Monopoly-Mega/dp/B000ITBYU8/?gotoExperts=PL9link&id=726vqk",
+    "image_link": "./assets/images/7.jpg"
+},
+{
+    "name": "Magnetyczna Tarcza do Rzutek",
+    "description": "Bezpieczna i zabawna tarcza do rzutek z magnesami, idealna do gry towarzyskiej dla dzieci i dorosłych.",
+    "price": "$17.95",
+    "buy_link": "https://www.amazon.com/Magnetic-Dart-Board-Yellow-Excellent/dp/B088H39PXX/?gotoExperts=PL9link&id=311kgy",
+    "image_link": "./assets/images/8.jpg"
+}
+        ],
+        "Sports Games": [
+        {
+    "name": "NBA 2K25 (PlayStation 5)",
+    "description": "Zagraj w najbardziej zaawansowaną grę koszykarską NBA na konsoli PlayStation 5. Oferuje wyjątkową grafikę, realistyczną rozgrywkę i najnowsze funkcje ligowe.",
+    "price": "$69.99",
+    "buy_link": "https://www.amazon.com/NBA-2K25-PlayStation-5/dp/B0D96QNZWH/?gotoExperts=PL9link&id=314gfn",
+    "image_link": "./assets/images/9.jpg"
+},
+{
+    "name": "Couomoxa Piłkarska Symulacja Edukacyjna Gra Interaktywna",
+    "description": "Interaktywna gra edukacyjna dla dzieci, która pozwala na symulację gier futbolowych. Idealna do rozwijania strategii i współpracy zespołowej.",
+    "price": "$29.99",
+    "buy_link": "https://www.amazon.com/Couomoxa-Football-Simulate-Educational-Interactive/dp/B0BRHCDH1M/?gotoExperts=PL9link&id=561jyu",
+    "image_link": "./assets/images/10.jpg"
+},
+{
+    "name": "EA SPORTS College Football 25 (Xbox)",
+    "description": "Dołącz do ekscytującej gry w futbol amerykański z realistyczną grafiką i dynamiczną rozgrywką. Graj w swojej ulubionej drużynie uniwersyteckiej.",
+    "price": "$69.99",
+    "buy_link": "https://www.amazon.com/EA-SPORTS-College-Football-25-Xbox/dp/B0D3PB2DBS/?gotoExperts=PL9link&id=872lkw",
+    "image_link": "./assets/images/11.jpg"
+},
+{
+    "name": "Madden NFL 24 (PS5)",
+    "description": "Przenieś się na boisko NFL dzięki Madden NFL 24 na PlayStation 5. Gra oferuje najnowsze zespoły, realistyczną rozgrywkę i wiele trybów gry.",
+    "price": "$69.99",
+    "buy_link": "https://www.amazon.com/SPORTS-Madden-NFL-PS5-Brand-PlayStation/dp/B0DJJJNZB1/?gotoExperts=PL9link&id=240xzl",
+    "image_link": "./assets/images/12.jpg"
+},
+{
+    "name": "HECOOR SPORTS Football Uniwersytecki (PlayStation)",
+    "description": "Odkryj emocje futbolu uniwersyteckiego z realistyczną grafiką i dynamicznymi funkcjami gry na konsoli PlayStation.",
+    "price": "$59.99",
+    "buy_link": "https://www.amazon.com/HECOOR-SPORTS-College-Football-Brand-PlayStation/dp/B0DFLPMWD6/?gotoExperts=PL9link&id=928ftq",
+    "image_link": "./assets/images/13.jpg"
+},
+{
+    "name": "Madden NFL 24 (PlayStation 5)",
+    "description": "Przeżyj intensywne mecze NFL z realistyczną grafiką i nowymi funkcjami w Madden NFL 24 na PlayStation 5. Gra oferuje nowe mechaniki i aktualizacje zespołów.",
+    "price": "$69.99",
+    "buy_link": "https://www.amazon.com/Madden-NFL-24-PlayStation-5/dp/B0C6NDYH6Z/?gotoExperts=PL9link&id=529lqs",
+    "image_link": "./assets/images/14.jpg"
+},
+{
+    "name": "Madden NFL 10 (Nintendo Wii) - Odnowiona",
+    "description": "Klasyczna edycja Madden NFL 10, teraz odnowiona na konsolę Nintendo Wii. Doświadcz klasycznej rozgrywki z unikalnym sterowaniem Wii.",
+    "price": "$39.99",
+    "buy_link": "https://www.amazon.com/Madden-NFL-10-Nintendo-Wii-Renewed/dp/B07ZKXTJRK/?gotoExperts=PL9link&id=364bmr",
+    "image_link": "./assets/images/15.jpg"
+},
+{
+    "name": "Mario Strikers Battle League (Nintendo Switch)",
+    "description": "Dołącz do drużyny Mario w tej dynamicznej i pełnej akcji grze piłkarskiej na Nintendo Switch. Idealna zabawa dla całej rodziny!",
+    "price": "$59.99",
+    "buy_link": "https://www.amazon.com/Mario-Strikers-Battle-League-Nintendo-Switch/dp/B09SP2RMDG/?gotoExperts=PL9link&id=183hxl",
+    "image_link": "./assets/images/16.jpg"
+},
+{
+    "name": "Doug Flutie's Maximum Football 2020 (PS4)",
+    "description": "Gra oferująca realistyczną rozgrywkę futbolową z możliwością zarządzania drużyną i dynamicznymi meczami. Idealna dla fanów sportów na PS4.",
+    "price": "$29.99",
+    "buy_link": "https://www.amazon.com/Doug-Fluties-Maximum-Football-2020-PS4/dp/B08Q1KZPC8/?gotoExperts=PL9link&id=195swo",
+    "image_link": "./assets/images/17.jpg"
+},
+{
+    "name": "HECOOR SPORTS Football Uniwersytecki (PlayStation)",
+    "description": "Odkryj emocje futbolu uniwersyteckiego z realistyczną grafiką i dynamicznymi funkcjami gry na konsoli PlayStation.",
+    "price": "$59.99",
+    "buy_link": "https://www.amazon.com/HECOOR-SPORTS-College-Football-Brand-PlayStation/dp/B0DFLPMWD6/?gotoExperts=PL9link&id=215tul",
+    "image_link": "./assets/images/18.jpg"
+}
+        ],
+
+        "Board Games ": [
+        {
+    "name": "VIVOHOME Składany Stół Pokerowy dla 8 Graczy",
+    "description": "Wygodny składany stół pokerowy dla 8 graczy, z powierzchnią antypoślizgową i miejscami na napoje. Idealny do domowych gier i turniejów.",
+    "price": "$129.99",
+    "buy_link": "https://www.amazon.com/VIVOHOME-Foldable-8-Player-Tabletop-Anti-Slip/dp/B08K8N1RCF/?gotoExperts=PL9link&id=458vjz",
+    "image_link": "./assets/images/19.jpg"
+},
+{
+    "name": "Regal Bingo Dwustronna Plansza Standardowa",
+    "description": "Dwustronna plansza bingo z kompatybilnością z różnymi wariantami gry. Wysoka jakość wykonania zapewnia trwałość i doskonałą rozgrywkę.",
+    "price": "$19.99",
+    "buy_link": "https://www.amazon.com/Regal-Bingo-Two-Sided-Standard-Compatible/dp/B0BWL2ZN89/?gotoExperts=PL9link&id=124cxp",
+    "image_link": "./assets/images/20.jpg"
+},
+{
+    "name": "Dominoes Doublefan Klasyczne Domino",
+    "description": "Zestaw klasycznych domino z wyjątkowym designem i precyzyjnym wykonaniem. Idealny na rodzinne wieczory i towarzyskie spotkania.",
+    "price": "$24.99",
+    "buy_link": "https://www.amazon.com/Dominoes-Doublefan-Classical-Dominos-Spinner/dp/B076F255Q4/?gotoExperts=PL9link&id=789jxy",
+    "image_link": "./assets/images/21.jpg"
+},
+{
+    "name": "RAYKEEP Składany Przenośny Stół do Blackjacka",
+    "description": "Przenośny i składany stół do blackjacka, idealny na wieczory gier. Wyposażony w trwałą, łatwą do czyszczenia powierzchnię.",
+    "price": "$89.99",
+    "buy_link": "https://www.amazon.com/RAYKEEP-Foldable-Portable-Blackjack-Game%EF%BC%88Black/dp/B0CJLQBLP4/?gotoExperts=PL9link&id=563vok",
+    "image_link": "./assets/images/22.jpg"
+},
+{
+    "name": "Goliath Michigan Rummy",
+    "description": "Ekscytująca gra planszowa Michigan Rummy z unikalnymi zasadami i wysokiej jakości komponentami. Doskonała na rodzinne spotkania i przyjęcia.",
+    "price": "$34.99",
+    "buy_link": "https://www.amazon.com/Goliath-Michigan-Rummy-Experience-Exclusive/dp/B08VF3S4C2/?gotoExperts=PL9link&id=910lqn",
+    "image_link": "./assets/images/23.jpg"
+},
+{
+    "name": "FUNNYB Składany Stół do Gier 48 Calowy",
+    "description": "Składany stół do gier, który zapewnia wygodną powierzchnię do różnych rozgrywek. Idealny na spotkania towarzyskie i imprezy.",
+    "price": "$59.99",
+    "buy_link": "https://www.amazon.com/FUNNYB-inches-Foldable-Tabletop-Parties/dp/B0DFPVZY9V/?gotoExperts=PL9link&id=241xyk",
+    "image_link": "./assets/images/24.jpg"
+},
+{
+    "name": "Gra Pyramid Poker",
+    "description": "Unikalna gra strategiczna łącząca elementy pokera z konstrukcją piramidy. Doskonała zabawa dla graczy w każdym wieku.",
+    "price": "$24.95",
+    "buy_link": "https://www.amazon.com/Games-Pyramid-Poker-Game/dp/B01MR2FRK4/?gotoExperts=PL9link&id=337opt",
+    "image_link": "./assets/images/25.jpg"
+},
+{
+    "name": "Gamie Zestaw Warcaby, Backgammon i Domino",
+    "description": "Zestaw klasycznych gier, w tym warcaby, backgammon i domino. Kompletny pakiet na długie wieczory w gronie rodziny i przyjaciół.",
+    "price": "$29.99",
+    "buy_link": "https://www.amazon.com/Gamie-Checkers-Backgammon-Playing-Dominoes-Complete/dp/B073X5JB6L/?gotoExperts=PL9link&id=675bsl",
+    "image_link": "./assets/images/26.jpg"
+},
+{
+    "name": "Carrom Gra Nok Hockey",
+    "description": "Duża plansza do gry Nok Hockey, zapewniająca dynamiczną i pełną emocji rozgrywkę. Idealna dla fanów gier zręcznościowych.",
+    "price": "$49.99",
+    "buy_link": "https://www.amazon.com/Carrom-20-01-Nok-Hockey-Game-Large/dp/B00004W60Z/?gotoExperts=PL9link&id=499tms",
+    "image_link": "./assets/images/27.jpg"
+},
+{
+    "name": "Tell Me Without Telling Me Gra",
+    "description": "Zabawna gra towarzyska, w której gracze muszą przekazywać hasła bez ich wypowiadania. Idealna na wieczory panieńskie i imprezy.",
+    "price": "$19.99",
+    "buy_link": "https://www.amazon.com/Tell-Without-Telling-Hilarious-Bachelorette/dp/B09DDDP3HX/?gotoExperts=PL9link&id=817dlm",
+    "image_link": "./assets/images/28.jpg"
+}
+        ]
+      }
+     
+
+
+      const container = document.getElementById('games-container');
+      const searchInput = document.getElementById('search-input');
+      const searchButton = document.getElementById('search-button');
+      function renderGames(filteredGames) {
+        container.innerHTML = ''; // Clear previous games
+
+        for (let category in filteredGames) {
+          const categoryGames = filteredGames[category];
+
+          let categoryHTML = `
+                    <div id="${category}" class="mb-10">
+                        <h2 class="text-3xl font-semibold text-white mb-4">${category}</h2>
+                        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                `;
+
+          categoryGames.forEach(game => {
+            const encodedGameName = encodeURIComponent(game.name);
+            const encodedDescription = encodeURIComponent(game.description);
+            const encodedPrice = encodeURIComponent(game.price);
+            const encodedImageLink = encodeURIComponent(game.image_link);
+            const encodedBuyLink = encodeURIComponent(game.buy_link);
+            categoryHTML += `
+                       <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-4 flex flex-col justify-between rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+    <!-- Image with fixed size and object-fit -->
+    <img src="${game.image_link}" alt="${game.name}" class="w-full h-48 object-contain rounded-md mb-4">
+    <h3 class="text-xl font-bold text-transparent bg-gradient-to-r from-teal-600 to-pink-700 bg-clip-text mb-2">${game.name}</h3>
+    <p class="text-white text-sm mb-4">${game.description}</p>
+    <p class="text-lg font-semibold text-white mb-4">Cena: ${game.price}</p>
+
+    <a href="game-details.html?name=${encodedGameName}&description=${encodedDescription}&price=${encodedPrice}&image_link=${encodedImageLink}&buy_link=${encodedBuyLink}" 
+        class="inline-block text-center bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition mb-4">
+        Więcej informacji
+    </a>
+
+    <!-- Add to Favorites Button -->
+    <button onclick="addToFavorites('${game.name}', '${game.description}', '${game.price}', '${game.image_link}', '${game.buy_link}')" class="inline-block text-center bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 transition">
+        Dodaj do ulubionych
+    </button>
+</div>
+
+
+                    `;
+          });
+
+          categoryHTML += `
+                        </div>
+                    </div>
+                `;
+
+          container.innerHTML += categoryHTML;
+
+          
+        }
+      }
+      
+      // Initial render of all games
+      renderGames(games);
+
+      
+
+
+      // Function to filter games based on search query
+      function filterGames(query) {
+        const filteredGames = {};
+
+        for (let category in games) {
+          // Filter games within the category that match the search query
+          const filteredCategory = games[category].filter(game => {
+            return game.name.toLowerCase().includes(query.toLowerCase()) ||
+              game.description.toLowerCase().includes(query.toLowerCase());
+          });
+
+          if (filteredCategory.length > 0) {
+            filteredGames[category] = filteredCategory;
+          }
+        }
+
+        // Render the filtered games
+        renderGames(filteredGames);
+      }
+      
+
+      // Event listener for the search button
+      searchButton.addEventListener('click', () => {
+        const searchQuery = searchInput.value.trim();
+        filterGames(searchQuery);
+      });
+
+      // Optional: Filter games on every keyup in the input field for real-time search
+      searchInput.addEventListener('keyup', () => {
+        const searchQuery = searchInput.value.trim();
+        filterGames(searchQuery);
+      });
+      const mobileSearchInput = document.getElementById('mobile-search-input');
+const mobileSearchButton = document.getElementById('mobile-search-button');
+
+// Mobile search button click event
+mobileSearchButton.addEventListener('click', () => {
+    const searchQuery = mobileSearchInput.value.trim();
+    filterGames(searchQuery); // Assuming filterGames is a function that filters and displays games
+});
+
+// Optional: Mobile filter on every keyup in the input field for real-time search
+mobileSearchInput.addEventListener('keyup', () => {
+    const searchQuery = mobileSearchInput.value.trim();
+    filterGames(searchQuery); // Filter games based on the query
+});
+    }
+
+
+  </script>
+
+
+</body>
+
+</html>
